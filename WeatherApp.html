@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Document</title>
+	<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .weather-container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        label {
+            font-weight: bold;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+        table {
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+	<fieldset>
+		<legend>WHEATHER APP</legend>
+		<br><br>
+		<form action="jsp" method="post">
+			<label>CITY NAME</label>
+			<input type="text" placeholder="City name" id="CityName">
+			<br><br>
+			<table>
+				<tr>
+					<td>CITY NAME</td>
+					<td id="city">PUNE</td>
+				</tr>
+				<tr>
+					<td>Temparture</td>
+					<td id="temp">27c</td>
+				</tr>
+				
+				
+				<tr>
+					<td>humidity</td>
+					<td id="hum">20%</td>
+				</tr>
+				<tr>
+					<td>wind</td>
+					<td id="wind">9 km/hr</td>
+				</tr>
+			</table>
+			<button type="button" onclick="fetchData()">FETCH</button>
+
+		</form>
+	</fieldset>
+	<script type="text/javascript">
+    let apiKey = "2918fdefaee9e001d86ce773f16ea7c"; // Replace "YOUR_API_KEY" with your OpenWeatherMap API key
+    let city = document.getElementById("city");
+    let temp = document.getElementById("temp");
+    let hum = document.getElementById("hum");
+    let wind = document.getElementById("wind");
+
+    function fetchData(){
+        let cityName = document.getElementById("CityName").value;
+        if(cityName !== ""){
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${pune}&appid=${API key}`)
+            .then(resp => resp.json())
+            .then(data => {
+                city.innerHTML = data.name;
+                temp.innerHTML = ((data.main.temp) - 273.15).toFixed(2) + "°C";
+                hum.innerHTML = data.main.humidity + "%";
+                wind.innerHTML = data.wind.speed + " km/hr";
+            })
+            .catch(error => console.error('Error fetching data:', error));
+        }
+        else{
+            alert("Please enter a city name");
+        }
+    }
+</script>
+	
+
+</body>
+</html>
